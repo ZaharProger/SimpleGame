@@ -93,7 +93,7 @@ namespace SimpleGame
             this.tableLayoutPanel2.ColumnCount = 3;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 71.65218F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.34783F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 122F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 123F));
             this.tableLayoutPanel2.Controls.Add(this.timeLine, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.infoButton, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.startButton, 1, 0);
@@ -110,7 +110,7 @@ namespace SimpleGame
             this.timeLine.ForeColor = System.Drawing.Color.DarkOrange;
             this.timeLine.Location = new System.Drawing.Point(3, 3);
             this.timeLine.Name = "timeLine";
-            this.timeLine.Size = new System.Drawing.Size(312, 38);
+            this.timeLine.Size = new System.Drawing.Size(311, 38);
             this.timeLine.TabIndex = 0;
             // 
             // infoButton
@@ -121,7 +121,7 @@ namespace SimpleGame
             this.infoButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.infoButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.infoButton.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.infoButton.Location = new System.Drawing.Point(446, 3);
+            this.infoButton.Location = new System.Drawing.Point(445, 3);
             this.infoButton.Name = "infoButton";
             this.infoButton.Size = new System.Drawing.Size(116, 38);
             this.infoButton.TabIndex = 1;
@@ -137,12 +137,13 @@ namespace SimpleGame
             this.startButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.startButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.startButton.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.startButton.Location = new System.Drawing.Point(321, 3);
+            this.startButton.Location = new System.Drawing.Point(320, 3);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(119, 38);
             this.startButton.TabIndex = 2;
             this.startButton.Text = "Начать игру";
             this.startButton.UseVisualStyleBackColor = false;
+            this.startButton.Click += new System.EventHandler(this.startButton_Click);
             // 
             // viewPort
             // 
@@ -205,7 +206,6 @@ namespace SimpleGame
             this.scoreValue.Name = "scoreValue";
             this.scoreValue.Size = new System.Drawing.Size(135, 30);
             this.scoreValue.TabIndex = 1;
-            this.scoreValue.Text = "0";
             this.scoreValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // scoreLabel

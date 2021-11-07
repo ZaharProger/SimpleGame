@@ -13,6 +13,11 @@ namespace SimpleGame
         public MainWindow()
         {
             InitializeComponent();
+            scoreValue.Text = "0";
+            lifeLine.Maximum = 100;
+            lifeLine.Value = lifeLine.Maximum;
+            timeLine.Maximum = 60;
+            timeLine.Value = timeLine.Maximum;
         }
 
         //Закрытие формы
@@ -27,7 +32,12 @@ namespace SimpleGame
         {
             Form infoForm = new InfoWindow();
             Hide();
-            infoForm.ShowDialog();
+            infoForm.ShowDialog();          
+        }
+
+        private void startButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

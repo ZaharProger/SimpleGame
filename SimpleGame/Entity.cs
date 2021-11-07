@@ -7,16 +7,16 @@ namespace SimpleGame
     //Класс сущности
     abstract class Entity
     {
-        private Position position;
+        protected Position position;
 
         protected Entity()
         {
             position = new Position();
         }
 
-        protected Entity(float x, float y)
+        protected Entity(float x, float y, float angle)
         {
-            position = new Position(x, y);
+            position = new Position(x, y, angle);
         }
 
         protected Entity(Position position)
@@ -24,6 +24,11 @@ namespace SimpleGame
             this.position = new Position(position);
         }
 
-        public abstract void Draw(System.Drawing.Graphics graphics);
+        public Position GetPosition()
+        {
+            return position;
+        }
+
+        public abstract void Draw(System.Drawing.Graphics drawer);
     }
 }
