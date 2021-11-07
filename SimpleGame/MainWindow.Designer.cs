@@ -29,6 +29,7 @@ namespace SimpleGame
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.recordButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -43,6 +44,7 @@ namespace SimpleGame
             this.scoreLabel = new System.Windows.Forms.Label();
             this.lifeLabel = new System.Windows.Forms.Label();
             this.lifeLine = new System.Windows.Forms.ProgressBar();
+            this.time = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.viewPort)).BeginInit();
@@ -93,7 +95,7 @@ namespace SimpleGame
             this.tableLayoutPanel2.ColumnCount = 3;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 71.65218F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.34783F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 123F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 127F));
             this.tableLayoutPanel2.Controls.Add(this.timeLine, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.infoButton, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.startButton, 1, 0);
@@ -107,10 +109,11 @@ namespace SimpleGame
             // 
             // timeLine
             // 
-            this.timeLine.ForeColor = System.Drawing.Color.DarkOrange;
+            this.timeLine.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.timeLine.ForeColor = System.Drawing.SystemColors.ActiveBorder;
             this.timeLine.Location = new System.Drawing.Point(3, 3);
             this.timeLine.Name = "timeLine";
-            this.timeLine.Size = new System.Drawing.Size(311, 38);
+            this.timeLine.Size = new System.Drawing.Size(308, 38);
             this.timeLine.TabIndex = 0;
             // 
             // infoButton
@@ -121,7 +124,7 @@ namespace SimpleGame
             this.infoButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.infoButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.infoButton.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.infoButton.Location = new System.Drawing.Point(445, 3);
+            this.infoButton.Location = new System.Drawing.Point(441, 3);
             this.infoButton.Name = "infoButton";
             this.infoButton.Size = new System.Drawing.Size(116, 38);
             this.infoButton.TabIndex = 1;
@@ -137,9 +140,9 @@ namespace SimpleGame
             this.startButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.startButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.startButton.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.startButton.Location = new System.Drawing.Point(320, 3);
+            this.startButton.Location = new System.Drawing.Point(317, 3);
             this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(119, 38);
+            this.startButton.Size = new System.Drawing.Size(118, 38);
             this.startButton.TabIndex = 2;
             this.startButton.Text = "Начать игру";
             this.startButton.UseVisualStyleBackColor = false;
@@ -155,6 +158,8 @@ namespace SimpleGame
             this.viewPort.Size = new System.Drawing.Size(566, 342);
             this.viewPort.TabIndex = 1;
             this.viewPort.TabStop = false;
+            this.viewPort.Paint += new System.Windows.Forms.PaintEventHandler(this.viewPort_Paint);
+            this.viewPort.MouseClick += new System.Windows.Forms.MouseEventHandler(this.viewPort_MouseClick);
             // 
             // logField
             // 
@@ -182,11 +187,12 @@ namespace SimpleGame
             // 
             // tableLayoutPanel3
             // 
-            this.tableLayoutPanel3.ColumnCount = 4;
+            this.tableLayoutPanel3.ColumnCount = 5;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel3.Controls.Add(this.scoreValue, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.scoreLabel, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.lifeLabel, 2, 0);
@@ -202,9 +208,9 @@ namespace SimpleGame
             // scoreValue
             // 
             this.scoreValue.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.scoreValue.Location = new System.Drawing.Point(144, 0);
+            this.scoreValue.Location = new System.Drawing.Point(139, 0);
             this.scoreValue.Name = "scoreValue";
-            this.scoreValue.Size = new System.Drawing.Size(135, 30);
+            this.scoreValue.Size = new System.Drawing.Size(130, 30);
             this.scoreValue.TabIndex = 1;
             this.scoreValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -213,7 +219,7 @@ namespace SimpleGame
             this.scoreLabel.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.scoreLabel.Location = new System.Drawing.Point(3, 0);
             this.scoreLabel.Name = "scoreLabel";
-            this.scoreLabel.Size = new System.Drawing.Size(135, 30);
+            this.scoreLabel.Size = new System.Drawing.Size(130, 30);
             this.scoreLabel.TabIndex = 0;
             this.scoreLabel.Text = "Число очков:";
             this.scoreLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -221,9 +227,9 @@ namespace SimpleGame
             // lifeLabel
             // 
             this.lifeLabel.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lifeLabel.Location = new System.Drawing.Point(285, 0);
+            this.lifeLabel.Location = new System.Drawing.Point(275, 0);
             this.lifeLabel.Name = "lifeLabel";
-            this.lifeLabel.Size = new System.Drawing.Size(135, 30);
+            this.lifeLabel.Size = new System.Drawing.Size(130, 30);
             this.lifeLabel.TabIndex = 2;
             this.lifeLabel.Text = "Здоровье игрока:";
             this.lifeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -231,10 +237,16 @@ namespace SimpleGame
             // lifeLine
             // 
             this.lifeLine.ForeColor = System.Drawing.Color.PaleGreen;
-            this.lifeLine.Location = new System.Drawing.Point(426, 3);
+            this.lifeLine.Location = new System.Drawing.Point(411, 3);
             this.lifeLine.Name = "lifeLine";
-            this.lifeLine.Size = new System.Drawing.Size(137, 24);
+            this.lifeLine.Size = new System.Drawing.Size(130, 24);
             this.lifeLine.TabIndex = 3;
+            // 
+            // time
+            // 
+            this.time.Enabled = true;
+            this.time.Interval = 30;
+            this.time.Tick += new System.EventHandler(this.time_Tick);
             // 
             // MainWindow
             // 
@@ -272,5 +284,6 @@ namespace SimpleGame
         private System.Windows.Forms.Label scoreLabel;
         private System.Windows.Forms.Label lifeLabel;
         private System.Windows.Forms.ProgressBar lifeLine;
+        private System.Windows.Forms.Timer time;
     }
 }

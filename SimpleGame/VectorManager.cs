@@ -9,14 +9,14 @@ namespace SimpleGame
     {
         public static float calculateLength(Position begin, Position end)
         {
-            return (float)Math.Sqrt(Math.Pow(end.GetX() - begin.GetX(), 2) + Math.Pow(end.GetY() - begin.GetY(), 2));
+            return MathF.Sqrt(MathF.Pow(end.GetX() - begin.GetX(), 2) + MathF.Pow(end.GetY() - begin.GetY(), 2));
         }
 
         public static Position normalize(Position begin, Position end)
         {
             float length = calculateLength(begin, end);
 
-            return new Position((end.GetX() - begin.GetX()) / length, (end.GetY() - begin.GetY()) / length);
+            return new Position((end.GetX() - begin.GetX()) / length, (end.GetY() - begin.GetY()) / length, 0);
         }
     }
 }

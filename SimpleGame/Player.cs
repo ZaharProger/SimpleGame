@@ -5,7 +5,7 @@ using System.Text;
 namespace SimpleGame
 {
     //Игрок
-    class Player : Entity
+    class Player : GameObject
     {
         private bool isHidden;
 
@@ -24,6 +24,12 @@ namespace SimpleGame
             isHidden = false;
         }
 
+        public void SetHiddenStatus(bool status)
+        {
+            isHidden = status;
+        }
+
+
         public bool IsHidden()
         {
             return isHidden;
@@ -31,9 +37,9 @@ namespace SimpleGame
 
         public override void Draw(System.Drawing.Graphics drawer)
         {
-            drawer.FillEllipse(new System.Drawing.SolidBrush(System.Drawing.Color.RoyalBlue), position.GetX(), position.GetY(), 20, 20);
-            drawer.FillEllipse(new System.Drawing.SolidBrush(System.Drawing.Color.Red), position.GetX(), position.GetY() - 10, 5, 5);
-            drawer.FillEllipse(new System.Drawing.SolidBrush(System.Drawing.Color.Red), position.GetX(), position.GetY() + 10, 5, 5);
+            drawer.FillEllipse(new System.Drawing.SolidBrush(System.Drawing.Color.RoyalBlue), -15, -15, 30, 30);
+            drawer.FillEllipse(new System.Drawing.SolidBrush(System.Drawing.Color.Red), 3, -10, 5, 5);
+            drawer.FillEllipse(new System.Drawing.SolidBrush(System.Drawing.Color.Red), 3, 6, 5, 5);
         }
     }
 }
