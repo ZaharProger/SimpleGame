@@ -9,6 +9,8 @@ namespace SimpleGame
     {
         protected Position position;
 
+        public Action<GameObject, GameObject> Overlap;
+
         protected GameObject()
         {
             position = new Position();
@@ -26,7 +28,9 @@ namespace SimpleGame
 
         public void SetPosition(Position position)
         {
-            this.position = position;
+            this.position.SetX(position.GetX());
+            this.position.SetY(position.GetY());
+            this.position.SetAngle(position.GetAngle());
         }
 
         public Position GetPosition()
@@ -44,5 +48,10 @@ namespace SimpleGame
         }
 
         public abstract void Draw(System.Drawing.Graphics drawer);
+
+        public virtual void Overlaps (GameObject gameObject)
+        {
+            Overlap?.Invoke(this, gameObject);
+        }
     }
 }

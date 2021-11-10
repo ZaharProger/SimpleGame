@@ -18,7 +18,7 @@ namespace SimpleGame
             InitializeComponent();
             isStarted = false;
             lifeLine.Maximum = 100;
-            timeLine.Maximum = 60;          
+            timeLine.Maximum = 60;   
         }
 
         //Закрытие формы
@@ -45,6 +45,8 @@ namespace SimpleGame
             logField.Text = $"{DateTime.Now:HH:mm:ss} - Новая игра началась!\n";
             player = new Player(viewPort.Width / 2, viewPort.Height / 2, 0);
             destinationPoint = new DestinationPoint(viewPort.Width / 2 + 10, viewPort.Height / 2 + 10, 0);
+            player.Overlap += (player, gameObject) => logField.Text += $"{DateTime.Now:HH:mm:ss} - Игрок пересекся с {gameObject}!\n";
+            player.DestinationPointOverlap += (destinationPoint) => destinationPoint = null;
         }
 
         //Обновление игровой механики
@@ -52,7 +54,7 @@ namespace SimpleGame
         {
             if (isStarted)
             {
-                //--timeLine.Value;
+                --timeLine.Value;
                 if (timeLine.Value == 0)
                 {
                     timeLine.Value = timeLine.Maximum;
@@ -65,9 +67,11 @@ namespace SimpleGame
                     logField.Text += $"{DateTime.Now:HH:mm:ss} - Игра окончена, игрок потерял все очки здоровья!\n";
                 }
                 Position updatedPlayersPosition = VectorManager.normalize(player.GetPosition(), destinationPoint.GetPosition());
-                updatedPlayersPosition.SetX(updatedPlayersPosition.GetX() + updatedPlayersPosition.GetX() * 2);
-                updatedPlayersPosition.SetY(updatedPlayersPosition.GetY() + updatedPlayersPosition.GetY() * 2);
-                updatedPlayersPosition.SetAngle(90 - MathF.Atan2(updatedPlayersPosition.GetX() * 0.5f, updatedPlayersPosition.GetY() * 0.5f) * 180 / MathF.PI);
+                player.SetSpeedX(player.GetSpeedX() + (destinationPoint.GetPosition().GetX() - player.GetPosition().GetX()) * 0.1f);
+                player.SetSpeedY(player.GetSpeedY() + (destinationPoint.GetPosition().GetY() - player.GetPosition().GetY()) * 0.1f);
+                updatedPlayersPosition.SetX(updatedPlayersPosition.GetX() + player.GetSpeedX());
+                updatedPlayersPosition.SetY(updatedPlayersPosition.GetY() + player.GetSpeedY());
+                updatedPlayersPosition.SetAngle(90 - MathF.Atan2(destinationPoint.GetPosition().GetX() - player.GetPosition().GetX(), destinationPoint.GetPosition().GetY() - player.GetPosition().GetY()) * 180 / MathF.PI);
                 player.SetPosition(updatedPlayersPosition);
 
                 viewPort.Invalidate();
