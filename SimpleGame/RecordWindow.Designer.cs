@@ -44,44 +44,48 @@ namespace SimpleGame
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(5);
+            this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(50, 5, 50, 50);
             this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.36364F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 88.63636F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 450);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.986859F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90.01314F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(784, 761);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // recordField
             // 
             this.recordField.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.recordField.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.recordField.Location = new System.Drawing.Point(8, 58);
+            this.recordField.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.recordField.Location = new System.Drawing.Point(53, 77);
+            this.recordField.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.recordField.Name = "recordField";
-            this.recordField.Size = new System.Drawing.Size(784, 384);
-            this.recordField.TabIndex = 0;
-            this.recordField.Text = "Дата игры\t\t\t                  Время игры                                      Кол" +
-    "ичество очков";
+            this.recordField.ReadOnly = true;
+            this.recordField.Size = new System.Drawing.Size(678, 632);
+            this.recordField.TabIndex = 2;
+            this.recordField.Text = "";
             // 
             // headLabel
             // 
             this.headLabel.AutoSize = true;
             this.headLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.headLabel.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.headLabel.Location = new System.Drawing.Point(8, 5);
+            this.headLabel.Location = new System.Drawing.Point(53, 5);
             this.headLabel.Name = "headLabel";
-            this.headLabel.Size = new System.Drawing.Size(784, 50);
+            this.headLabel.Size = new System.Drawing.Size(678, 70);
             this.headLabel.TabIndex = 1;
-            this.headLabel.Text = "Таблица рекордов";
+            this.headLabel.Text = "Таблица Рекордов";
             this.headLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // RecordWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(784, 761);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MaximizeBox = false;
             this.Name = "RecordWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Таблица рекордов";
@@ -96,7 +100,7 @@ namespace SimpleGame
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.RichTextBox recordField;
         private System.Windows.Forms.Label headLabel;
+        private System.Windows.Forms.RichTextBox recordField;
     }
 }

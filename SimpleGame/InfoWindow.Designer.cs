@@ -31,8 +31,8 @@ namespace SimpleGame
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InfoWindow));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.headLabel = new System.Windows.Forms.Label();
             this.rulesLabel = new System.Windows.Forms.Label();
+            this.headLabel = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,17 +51,6 @@ namespace SimpleGame
             this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 450);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // headLabel
-            // 
-            this.headLabel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.headLabel.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.headLabel.Location = new System.Drawing.Point(3, 0);
-            this.headLabel.Name = "headLabel";
-            this.headLabel.Size = new System.Drawing.Size(794, 49);
-            this.headLabel.TabIndex = 0;
-            this.headLabel.Text = "Правила игры";
-            this.headLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // rulesLabel
             // 
             this.rulesLabel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -72,6 +61,17 @@ namespace SimpleGame
             this.rulesLabel.TabIndex = 1;
             this.rulesLabel.Text = resources.GetString("rulesLabel.Text");
             this.rulesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // headLabel
+            // 
+            this.headLabel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.headLabel.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.headLabel.Location = new System.Drawing.Point(3, 0);
+            this.headLabel.Name = "headLabel";
+            this.headLabel.Size = new System.Drawing.Size(794, 49);
+            this.headLabel.TabIndex = 0;
+            this.headLabel.Text = "Правила игры";
+            this.headLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // InfoWindow
             // 

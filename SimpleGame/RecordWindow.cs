@@ -13,6 +13,7 @@ namespace SimpleGame
         public RecordWindow()
         {
             InitializeComponent();
+            recordField.Text = Properties.Settings.Default.recordString;
         }
 
         //Закрытие формы
@@ -27,12 +28,6 @@ namespace SimpleGame
         {
             Form hiddenForm = Application.OpenForms[0];
             hiddenForm.Show();
-        }
-
-        //Запись рекорда
-        public void WriteRecord(string score)
-        {
-            recordField.Text += $"{DateTime.Now:dd::MM::yyyy}\t{DateTime.Now:HH:mm:ss}\t{score}\n";
         }
     }
 }
