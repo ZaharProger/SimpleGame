@@ -8,21 +8,24 @@ namespace SimpleGame
     abstract class GameObject
     {
         protected Position position;
-
+        protected bool isOverlapped;
 
         protected GameObject()
         {
             position = new Position();
+            isOverlapped = false;
         }
 
         protected GameObject(float x, float y, float angle)
         {
             position = new Position(x, y, angle);
+            isOverlapped = false;
         }
 
         protected GameObject(Position position)
         {
             this.position = new Position(position);
+            isOverlapped = false;
         }
 
         public void SetPosition(Position position)
@@ -35,6 +38,16 @@ namespace SimpleGame
         public Position GetPosition()
         {
             return position;
+        }
+
+        public void SetOverlap(bool status)
+        {
+            isOverlapped = status;
+        }
+
+        public bool IsOverlapped()
+        {
+            return isOverlapped;
         }
 
         public System.Drawing.Drawing2D.Matrix GetTransformData()
@@ -53,7 +66,7 @@ namespace SimpleGame
             return new System.Drawing.Drawing2D.GraphicsPath();
         }
 
-        public bool IsOverlapped(GameObject gameObject, System.Drawing.Graphics graphicsArgs)
+        public void CheckOverlap(GameObject gameObject, System.Drawing.Graphics graphicsArgs)
         {
             System.Drawing.Drawing2D.GraphicsPath actualRegion = GetRegion();
             System.Drawing.Drawing2D.GraphicsPath objectRegion = gameObject.GetRegion();
@@ -64,7 +77,8 @@ namespace SimpleGame
             System.Drawing.Region region = new System.Drawing.Region(actualRegion);
             region.Intersect(objectRegion);           
 
-            return !region.IsEmpty(graphicsArgs);
+            isOverlapped = !region.IsEmpty(graphicsArgs);
         }
+
     }
 }

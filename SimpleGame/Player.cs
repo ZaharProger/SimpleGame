@@ -11,7 +11,6 @@ namespace SimpleGame
         private float speedX;
         private float speedY;
 
-
         public Player() : base()
         {
             isHidden = false;

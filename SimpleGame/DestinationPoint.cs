@@ -16,6 +16,11 @@ namespace SimpleGame
         public DestinationPoint(Position position) : base(position)
         {}
 
+        public override string ToString()
+        {
+            return "Заданная позиция";
+        }
+
         public override void Draw(System.Drawing.Graphics drawer)
         {
             drawer.FillEllipse(new System.Drawing.SolidBrush(System.Drawing.Color.Red), -2.5f, -2.5f, 5, 5);

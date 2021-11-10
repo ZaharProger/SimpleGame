@@ -5,7 +5,6 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-
 namespace SimpleGame
 {
     public partial class MainWindow : Form
@@ -19,7 +18,7 @@ namespace SimpleGame
             InitializeComponent();
             isStarted = false;
             lifeLine.Maximum = 100;
-            timeLine.Maximum = 60;   
+            timeLine.Maximum = 60;
         }
 
         //Закрытие формы
@@ -66,27 +65,30 @@ namespace SimpleGame
                 updatedPlayersPosition.SetX(updatedPlayersPosition.GetX() / length);
                 updatedPlayersPosition.SetY(updatedPlayersPosition.GetY() / length);
 
-                player.SetSpeedX(player.GetSpeedX() + updatedPlayersPosition.GetX() * 0.5f);
-                player.SetSpeedY(player.GetSpeedY() + updatedPlayersPosition.GetY() * 0.5f);
+                player.SetSpeedX(player.GetSpeedX() + updatedPlayersPosition.GetX());
+                player.SetSpeedY(player.GetSpeedY() + updatedPlayersPosition.GetY());
 
                 updatedPlayersPosition.SetAngle(90 - MathF.Atan2(player.GetSpeedX(), player.GetSpeedY()) * 180 / MathF.PI);
             }
-            
-            player.SetSpeedX(player.GetSpeedX() * (-0.1f));
-            player.SetSpeedY(player.GetSpeedY() * (-0.1f));
-            
-            updatedPlayersPosition.SetX(player.GetPosition().GetX() + player.GetSpeedX());
-            
+
+            player.SetSpeedX(player.GetSpeedX() + (-player.GetSpeedX() * 0.1f));
+            player.SetSpeedY(player.GetSpeedY() + (-player.GetSpeedY() * 0.1f));
+       
+            updatedPlayersPosition.SetX(player.GetPosition().GetX() + player.GetSpeedX());           
             updatedPlayersPosition.SetY(player.GetPosition().GetY() + player.GetSpeedY());
+
             player.SetPosition(updatedPlayersPosition);
         }
 
         //Обновление игровой механики
         private void time_Tick(object sender, EventArgs e)
         {
+            
             if (isStarted)
             {
-                //--timeLine.Value;
+                --timeLine.Value;
+                if (player.IsOverlapped())
+                    timeLine.Value = timeLine.Maximum;
                 if (timeLine.Value == 0)
                 {
                     timeLine.Value = timeLine.Maximum;
@@ -114,14 +116,18 @@ namespace SimpleGame
         {
             if (isStarted)
             {
-                e.Graphics.Clear(Color.White);
+                e.Graphics.Clear(Color.White);              
                 foreach (GameObject gameObject in objects.ToArray())
                 {
-                    if (gameObject != player && player.IsOverlapped(gameObject, e.Graphics))
+                    player.CheckOverlap(gameObject, e.Graphics);
+                    if (gameObject != player && player.IsOverlapped())
                     {
-                        logField.Text += $"{DateTime.Now:HH:mm:ss} - Игрок переместился в заданную позицию!\n";
-                        objects.Remove(gameObject);
-                        destinationPoint = null;
+                        logField.Text += $"{DateTime.Now:HH:mm:ss} - Игрок пересекся с объектом '{gameObject}'!\n";
+                        if (gameObject == destinationPoint)
+                        {
+                            objects.Remove(gameObject);
+                            destinationPoint = null;
+                        }
                     }
                     e.Graphics.Transform = gameObject.GetTransformData();
                     gameObject.Draw(e.Graphics);
@@ -147,6 +153,13 @@ namespace SimpleGame
                     objects.Add(destinationPoint);
                 }
             }    
-        }       
+        }
+
+        //Прокрутка лог поля в конец
+        private void logField_TextChanged(object sender, EventArgs e)
+        {
+            logField.SelectionStart = logField.Text.Length;
+            logField.ScrollToCaret();
+        }
     }
 }
