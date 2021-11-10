@@ -15,12 +15,14 @@ namespace SimpleGame
         private CheckPoint checkPoint;
         private List<GameObject> objects;
         private bool isStarted;
+        RecordWindow recordWindow;
         public MainWindow()
         {
             InitializeComponent();
             isStarted = false;
             lifeLine.Maximum = 100;
-            timeLine.Maximum = 60;            
+            timeLine.Maximum = 60;
+            recordWindow = new RecordWindow();
         }
 
         //Закрытие формы
@@ -36,6 +38,13 @@ namespace SimpleGame
             Form infoForm = new InfoWindow();
             Hide();
             infoForm.ShowDialog();          
+        }
+
+        //Открытие таблицы рекордов
+        private void recordButton_Click(object sender, EventArgs e)
+        {
+            Hide();
+            recordWindow.ShowDialog();
         }
 
         //Запуск игры
@@ -79,6 +88,7 @@ namespace SimpleGame
                 {
                     isStarted = false;
                     logField.Text += $"{DateTime.Now:HH:mm:ss} - Игра окончена, игрок потерял все очки здоровья!\n";
+                    recordWindow.WriteRecord(scoreValue.Text);
                 }
 
                 MovementLogic.UpdatePlayersPosition(player, destinationPoint);
