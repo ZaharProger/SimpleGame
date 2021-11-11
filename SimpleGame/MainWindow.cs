@@ -12,6 +12,7 @@ namespace SimpleGame
     {
         private Player player;
         private DestinationPoint destinationPoint;
+        private List<GameObject> objects;
         private bool isStarted;
         public MainWindow()
         {
@@ -36,6 +37,7 @@ namespace SimpleGame
             infoForm.ShowDialog();          
         }
 
+        //Запуск игры
         private void startButton_Click(object sender, EventArgs e)
         {
             isStarted = true;
@@ -45,8 +47,38 @@ namespace SimpleGame
             logField.Text = $"{DateTime.Now:HH:mm:ss} - Новая игра началась!\n";
             player = new Player(viewPort.Width / 2, viewPort.Height / 2, 0);
             destinationPoint = new DestinationPoint(viewPort.Width / 2 + 10, viewPort.Height / 2 + 10, 0);
-            player.Overlap += (player, gameObject) => logField.Text += $"{DateTime.Now:HH:mm:ss} - Игрок пересекся с {gameObject}!\n";
-            player.DestinationPointOverlap += (destinationPoint) => destinationPoint = null;
+            objects = new List<GameObject>();
+            objects.Add(player);
+            objects.Add(destinationPoint);
+        }
+
+        //Обновление позиции игрока
+        private void UpdatePlayersPosition()
+        {
+            Position updatedPlayersPosition = new Position();
+
+            if (destinationPoint != null)
+            {
+                updatedPlayersPosition.SetX(destinationPoint.GetPosition().GetX() - player.GetPosition().GetX());
+                updatedPlayersPosition.SetY(destinationPoint.GetPosition().GetY() - player.GetPosition().GetY());
+
+                float length = MathF.Sqrt(MathF.Pow(updatedPlayersPosition.GetX(), 2) + MathF.Pow(updatedPlayersPosition.GetY(), 2));
+                updatedPlayersPosition.SetX(updatedPlayersPosition.GetX() / length);
+                updatedPlayersPosition.SetY(updatedPlayersPosition.GetY() / length);
+
+                player.SetSpeedX(player.GetSpeedX() + updatedPlayersPosition.GetX() * 0.5f);
+                player.SetSpeedY(player.GetSpeedY() + updatedPlayersPosition.GetY() * 0.5f);
+
+                updatedPlayersPosition.SetAngle(90 - MathF.Atan2(player.GetSpeedX(), player.GetSpeedY()) * 180 / MathF.PI);
+            }
+            
+            player.SetSpeedX(player.GetSpeedX() * (-0.1f));
+            player.SetSpeedY(player.GetSpeedY() * (-0.1f));
+            
+            updatedPlayersPosition.SetX(player.GetPosition().GetX() + player.GetSpeedX());
+            
+            updatedPlayersPosition.SetY(player.GetPosition().GetY() + player.GetSpeedY());
+            player.SetPosition(updatedPlayersPosition);
         }
 
         //Обновление игровой механики
@@ -54,7 +86,7 @@ namespace SimpleGame
         {
             if (isStarted)
             {
-                --timeLine.Value;
+                //--timeLine.Value;
                 if (timeLine.Value == 0)
                 {
                     timeLine.Value = timeLine.Maximum;
@@ -66,14 +98,8 @@ namespace SimpleGame
                     isStarted = false;
                     logField.Text += $"{DateTime.Now:HH:mm:ss} - Игра окончена, игрок потерял все очки здоровья!\n";
                 }
-                Position updatedPlayersPosition = VectorManager.normalize(player.GetPosition(), destinationPoint.GetPosition());
-                player.SetSpeedX(player.GetSpeedX() + (destinationPoint.GetPosition().GetX() - player.GetPosition().GetX()) * 0.1f);
-                player.SetSpeedY(player.GetSpeedY() + (destinationPoint.GetPosition().GetY() - player.GetPosition().GetY()) * 0.1f);
-                updatedPlayersPosition.SetX(updatedPlayersPosition.GetX() + player.GetSpeedX());
-                updatedPlayersPosition.SetY(updatedPlayersPosition.GetY() + player.GetSpeedY());
-                updatedPlayersPosition.SetAngle(90 - MathF.Atan2(destinationPoint.GetPosition().GetX() - player.GetPosition().GetX(), destinationPoint.GetPosition().GetY() - player.GetPosition().GetY()) * 180 / MathF.PI);
-                player.SetPosition(updatedPlayersPosition);
 
+                UpdatePlayersPosition();
                 viewPort.Invalidate();
             }
             else
@@ -89,10 +115,17 @@ namespace SimpleGame
             if (isStarted)
             {
                 e.Graphics.Clear(Color.White);
-                e.Graphics.Transform = player.GetTransformData();
-                player.Draw(e.Graphics);
-                e.Graphics.Transform = destinationPoint.GetTransformData();
-                destinationPoint.Draw(e.Graphics);
+                foreach (GameObject gameObject in objects.ToArray())
+                {
+                    if (gameObject != player && player.IsOverlapped(gameObject, e.Graphics))
+                    {
+                        logField.Text += $"{DateTime.Now:HH:mm:ss} - Игрок переместился в заданную позицию!\n";
+                        objects.Remove(gameObject);
+                        destinationPoint = null;
+                    }
+                    e.Graphics.Transform = gameObject.GetTransformData();
+                    gameObject.Draw(e.Graphics);
+                }
             }
             else
             {
@@ -104,7 +137,16 @@ namespace SimpleGame
         private void viewPort_MouseClick(object sender, MouseEventArgs e)
         {
             if (isStarted)
-                destinationPoint.SetPosition(new Position(e.X, e.Y, 0));
+            {
+                Position mousePosition = new Position(e.X, e.Y, 0);
+                if (destinationPoint != null)
+                    destinationPoint.SetPosition(mousePosition);
+                else
+                {
+                    destinationPoint = new DestinationPoint(mousePosition);
+                    objects.Add(destinationPoint);
+                }
+            }    
         }       
     }
 }

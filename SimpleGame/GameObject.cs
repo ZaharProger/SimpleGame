@@ -9,7 +9,6 @@ namespace SimpleGame
     {
         protected Position position;
 
-        public Action<GameObject, GameObject> Overlap;
 
         protected GameObject()
         {
@@ -49,9 +48,23 @@ namespace SimpleGame
 
         public abstract void Draw(System.Drawing.Graphics drawer);
 
-        public virtual void Overlaps (GameObject gameObject)
+        public virtual System.Drawing.Drawing2D.GraphicsPath GetRegion()
         {
-            Overlap?.Invoke(this, gameObject);
+            return new System.Drawing.Drawing2D.GraphicsPath();
+        }
+
+        public bool IsOverlapped(GameObject gameObject, System.Drawing.Graphics graphicsArgs)
+        {
+            System.Drawing.Drawing2D.GraphicsPath actualRegion = GetRegion();
+            System.Drawing.Drawing2D.GraphicsPath objectRegion = gameObject.GetRegion();
+
+            actualRegion.Transform(GetTransformData());
+            objectRegion.Transform(gameObject.GetTransformData());
+
+            System.Drawing.Region region = new System.Drawing.Region(actualRegion);
+            region.Intersect(objectRegion);           
+
+            return !region.IsEmpty(graphicsArgs);
         }
     }
 }

@@ -11,7 +11,6 @@ namespace SimpleGame
         private float speedX;
         private float speedY;
 
-        public Action<DestinationPoint> DestinationPointOverlap;
 
         public Player() : base()
         {
@@ -71,11 +70,13 @@ namespace SimpleGame
             drawer.FillEllipse(new System.Drawing.SolidBrush(System.Drawing.Color.Red), 3, 6, 5, 5);
         }
 
-        public override void Overlaps(GameObject gameObject)
+
+        public override System.Drawing.Drawing2D.GraphicsPath GetRegion()
         {
-            base.Overlaps(gameObject);
-            if (gameObject is DestinationPoint)
-                DestinationPointOverlap(gameObject as DestinationPoint);
+            System.Drawing.Drawing2D.GraphicsPath objectRegion = base.GetRegion();
+            objectRegion.AddEllipse(-15, -15, 30, 30);
+
+            return objectRegion;
         }
     }
 }
