@@ -32,9 +32,10 @@ namespace SimpleGame
             this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.timeLine = new System.Windows.Forms.ProgressBar();
             this.infoButton = new System.Windows.Forms.Button();
             this.startButton = new System.Windows.Forms.Button();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.timeLine = new System.Windows.Forms.ProgressBar();
             this.viewPort = new System.Windows.Forms.PictureBox();
             this.logField = new System.Windows.Forms.RichTextBox();
             this.eventLabel = new System.Windows.Forms.Label();
@@ -47,6 +48,7 @@ namespace SimpleGame
             this.time = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.viewPort)).BeginInit();
             this.tableLayoutPanel3.SuspendLayout();
             this.SuspendLayout();
@@ -54,8 +56,8 @@ namespace SimpleGame
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 214F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 142F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 251F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 105F));
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.viewPort, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.logField, 0, 1);
@@ -65,7 +67,7 @@ namespace SimpleGame
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(5);
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 52F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 340F));
@@ -77,31 +79,19 @@ namespace SimpleGame
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 3;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 140F));
-            this.tableLayoutPanel2.Controls.Add(this.timeLine, 0, 0);
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 51.76678F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 23.14488F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel2.Controls.Add(this.infoButton, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.startButton, 1, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(224, 402);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel4, 0, 0);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(261, 402);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(5);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 89F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(566, 89);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(529, 89);
             this.tableLayoutPanel2.TabIndex = 4;
-            // 
-            // timeLine
-            // 
-            this.timeLine.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.timeLine.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.timeLine.ForeColor = System.Drawing.SystemColors.ActiveBorder;
-            this.timeLine.Location = new System.Drawing.Point(3, 3);
-            this.timeLine.Name = "timeLine";
-            this.timeLine.Size = new System.Drawing.Size(299, 41);
-            this.timeLine.TabIndex = 0;
             // 
             // infoButton
             // 
@@ -114,9 +104,9 @@ namespace SimpleGame
             this.infoButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.infoButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.infoButton.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.infoButton.Location = new System.Drawing.Point(429, 3);
+            this.infoButton.Location = new System.Drawing.Point(399, 3);
             this.infoButton.Name = "infoButton";
-            this.infoButton.Size = new System.Drawing.Size(134, 41);
+            this.infoButton.Size = new System.Drawing.Size(127, 41);
             this.infoButton.TabIndex = 1;
             this.infoButton.Text = "Правила";
             this.infoButton.UseVisualStyleBackColor = false;
@@ -133,13 +123,36 @@ namespace SimpleGame
             this.startButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.startButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.startButton.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.startButton.Location = new System.Drawing.Point(308, 3);
+            this.startButton.Location = new System.Drawing.Point(277, 3);
             this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(115, 41);
+            this.startButton.Size = new System.Drawing.Size(116, 41);
             this.startButton.TabIndex = 2;
             this.startButton.Text = "Начать игру";
             this.startButton.UseVisualStyleBackColor = false;
             this.startButton.Click += new System.EventHandler(this.startButton_Click);
+            // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.ColumnCount = 1;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.Controls.Add(this.timeLine, 0, 0);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 1;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(268, 41);
+            this.tableLayoutPanel4.TabIndex = 3;
+            // 
+            // timeLine
+            // 
+            this.timeLine.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.timeLine.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.timeLine.ForeColor = System.Drawing.SystemColors.ActiveBorder;
+            this.timeLine.Location = new System.Drawing.Point(3, 3);
+            this.timeLine.Name = "timeLine";
+            this.timeLine.Size = new System.Drawing.Size(262, 35);
+            this.timeLine.TabIndex = 4;
             // 
             // viewPort
             // 
@@ -147,11 +160,11 @@ namespace SimpleGame
             | System.Windows.Forms.AnchorStyles.Right)));
             this.viewPort.BackColor = System.Drawing.Color.WhiteSmoke;
             this.viewPort.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.viewPort.Location = new System.Drawing.Point(224, 62);
-            this.viewPort.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.viewPort.Location = new System.Drawing.Point(261, 62);
+            this.viewPort.Margin = new System.Windows.Forms.Padding(5);
             this.viewPort.Name = "viewPort";
-            this.viewPort.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.viewPort.Size = new System.Drawing.Size(566, 329);
+            this.viewPort.Padding = new System.Windows.Forms.Padding(5);
+            this.viewPort.Size = new System.Drawing.Size(529, 329);
             this.viewPort.TabIndex = 1;
             this.viewPort.TabStop = false;
             this.viewPort.Paint += new System.Windows.Forms.PaintEventHandler(this.viewPort_Paint);
@@ -165,10 +178,10 @@ namespace SimpleGame
             this.logField.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.logField.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.logField.Location = new System.Drawing.Point(10, 62);
-            this.logField.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.logField.Margin = new System.Windows.Forms.Padding(5);
             this.logField.Name = "logField";
             this.logField.ReadOnly = true;
-            this.logField.Size = new System.Drawing.Size(204, 330);
+            this.logField.Size = new System.Drawing.Size(241, 330);
             this.logField.TabIndex = 0;
             this.logField.Text = "";
             this.logField.TextChanged += new System.EventHandler(this.logField_TextChanged);
@@ -177,9 +190,9 @@ namespace SimpleGame
             // 
             this.eventLabel.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.eventLabel.Location = new System.Drawing.Point(10, 10);
-            this.eventLabel.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.eventLabel.Margin = new System.Windows.Forms.Padding(5);
             this.eventLabel.Name = "eventLabel";
-            this.eventLabel.Size = new System.Drawing.Size(204, 41);
+            this.eventLabel.Size = new System.Drawing.Size(241, 41);
             this.eventLabel.TabIndex = 6;
             this.eventLabel.Text = "События";
             this.eventLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -191,26 +204,26 @@ namespace SimpleGame
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 22F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel3.Controls.Add(this.scoreValue, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.scoreLabel, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.lifeLabel, 2, 0);
             this.tableLayoutPanel3.Controls.Add(this.lifeLine, 3, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(224, 10);
-            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(261, 10);
+            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(5);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(566, 42);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(529, 42);
             this.tableLayoutPanel3.TabIndex = 5;
             // 
             // scoreValue
             // 
             this.scoreValue.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.scoreValue.Location = new System.Drawing.Point(139, 0);
+            this.scoreValue.Location = new System.Drawing.Point(129, 0);
             this.scoreValue.Name = "scoreValue";
-            this.scoreValue.Size = new System.Drawing.Size(130, 41);
+            this.scoreValue.Size = new System.Drawing.Size(120, 41);
             this.scoreValue.TabIndex = 1;
             this.scoreValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -219,7 +232,7 @@ namespace SimpleGame
             this.scoreLabel.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.scoreLabel.Location = new System.Drawing.Point(3, 0);
             this.scoreLabel.Name = "scoreLabel";
-            this.scoreLabel.Size = new System.Drawing.Size(130, 41);
+            this.scoreLabel.Size = new System.Drawing.Size(120, 41);
             this.scoreLabel.TabIndex = 0;
             this.scoreLabel.Text = "Число очков:";
             this.scoreLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -227,9 +240,9 @@ namespace SimpleGame
             // lifeLabel
             // 
             this.lifeLabel.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lifeLabel.Location = new System.Drawing.Point(275, 0);
+            this.lifeLabel.Location = new System.Drawing.Point(255, 0);
             this.lifeLabel.Name = "lifeLabel";
-            this.lifeLabel.Size = new System.Drawing.Size(130, 41);
+            this.lifeLabel.Size = new System.Drawing.Size(120, 41);
             this.lifeLabel.TabIndex = 2;
             this.lifeLabel.Text = "Здоровье игрока:";
             this.lifeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -237,9 +250,9 @@ namespace SimpleGame
             // lifeLine
             // 
             this.lifeLine.ForeColor = System.Drawing.Color.PaleGreen;
-            this.lifeLine.Location = new System.Drawing.Point(411, 3);
+            this.lifeLine.Location = new System.Drawing.Point(381, 3);
             this.lifeLine.Name = "lifeLine";
-            this.lifeLine.Size = new System.Drawing.Size(130, 35);
+            this.lifeLine.Size = new System.Drawing.Size(120, 35);
             this.lifeLine.TabIndex = 3;
             // 
             // recordButton
@@ -254,9 +267,9 @@ namespace SimpleGame
             this.recordButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.recordButton.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.recordButton.Location = new System.Drawing.Point(10, 402);
-            this.recordButton.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.recordButton.Margin = new System.Windows.Forms.Padding(5);
             this.recordButton.Name = "recordButton";
-            this.recordButton.Size = new System.Drawing.Size(204, 44);
+            this.recordButton.Size = new System.Drawing.Size(241, 44);
             this.recordButton.TabIndex = 7;
             this.recordButton.Text = "Таблица рекордов";
             this.recordButton.UseVisualStyleBackColor = false;
@@ -284,6 +297,7 @@ namespace SimpleGame
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainWindow_KeyDown);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.viewPort)).EndInit();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -295,7 +309,6 @@ namespace SimpleGame
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button recordButton;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.ProgressBar timeLine;
         private System.Windows.Forms.Button infoButton;
         private System.Windows.Forms.Button startButton;
         private System.Windows.Forms.PictureBox viewPort;
@@ -307,5 +320,7 @@ namespace SimpleGame
         private System.Windows.Forms.Label lifeLabel;
         private System.Windows.Forms.ProgressBar lifeLine;
         private System.Windows.Forms.Timer time;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
+        private System.Windows.Forms.ProgressBar timeLine;
     }
 }

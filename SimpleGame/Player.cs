@@ -9,30 +9,29 @@ namespace SimpleGame
     {
         private bool isHidden;
         private float speedX;
-        private float speedY;
-
-        public Action<GameObject> overlapAction;
+        private float speedY;      
+       
         public Action<DestinationPoint> destinationPointOverlapAction;
         public Action checkPointOverlapAction;
         public Action darkAreaOverlapPosition;
 
         public Player() : base()
         {
-            isHidden = false;
+            isHidden = true;
             speedX = 0;
             speedY = 0;
         }
 
         public Player(float x, float y, float angle) : base(x, y, angle)
         {
-            isHidden = false;
+            isHidden = true;
             speedX = 0;
             speedY = 0;
         }
 
         public Player(Position position) : base(position)
         {
-            isHidden = false;
+            isHidden = true;
             speedX = 0;
             speedY = 0;
         }
@@ -74,15 +73,28 @@ namespace SimpleGame
         {
             return isHidden;
         }
+        public override string ToString()
+        {
+            return "Игрок";
+        }
 
         public override void Draw(System.Drawing.Graphics drawer)
         {
+            base.Draw(drawer);
             if (isHidden)
+            {
                 drawer.FillEllipse(new System.Drawing.SolidBrush(System.Drawing.Color.Black), -15, -15, 30, 30);
+                drawer.FillEllipse(new System.Drawing.SolidBrush(System.Drawing.Color.Red), 3, -10, 5, 5);
+                drawer.FillEllipse(new System.Drawing.SolidBrush(System.Drawing.Color.Red), 3, 6, 5, 5);
+            }              
+            else if (isGlow)
+                drawer.FillEllipse(new System.Drawing.SolidBrush(System.Drawing.Color.White), -15, -15, 30, 30);
             else
+            {
                 drawer.FillEllipse(new System.Drawing.SolidBrush(System.Drawing.Color.RoyalBlue), -15, -15, 30, 30);
-            drawer.FillEllipse(new System.Drawing.SolidBrush(System.Drawing.Color.Red), 3, -10, 5, 5);
-            drawer.FillEllipse(new System.Drawing.SolidBrush(System.Drawing.Color.Red), 3, 6, 5, 5);
+                drawer.FillEllipse(new System.Drawing.SolidBrush(System.Drawing.Color.Red), 3, -10, 5, 5);
+                drawer.FillEllipse(new System.Drawing.SolidBrush(System.Drawing.Color.Red), 3, 6, 5, 5);
+            }          
         }
 
         public override System.Drawing.Drawing2D.GraphicsPath GetRegion()
@@ -93,10 +105,9 @@ namespace SimpleGame
             return objectRegion;
         }
 
-        public void Overlap(GameObject gameObject)
+        public override void Overlap(GameObject gameObject)
         {
-            if (gameObject != null)
-                overlapAction(gameObject);
+            base.Overlap(gameObject);
 
             if (gameObject is DestinationPoint)
                 destinationPointOverlapAction(gameObject as DestinationPoint);

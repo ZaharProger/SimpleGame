@@ -29,5 +29,12 @@ namespace SimpleGame
             Form hiddenForm = Application.OpenForms[0];
             hiddenForm.Show();
         }
+
+        //Очистка таблицы
+        private void resetButton_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Reset();
+            recordField.Text = "";
+        }
     }
 }

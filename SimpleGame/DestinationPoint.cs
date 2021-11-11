@@ -18,13 +18,22 @@ namespace SimpleGame
 
         public override string ToString()
         {
-            return "Заданная позиция";
+            return "Метка";
         }
 
         public override void Draw(System.Drawing.Graphics drawer)
         {
-            drawer.FillEllipse(new System.Drawing.SolidBrush(System.Drawing.Color.Red), -2.5f, -2.5f, 5, 5);
-            drawer.DrawEllipse(new System.Drawing.Pen(System.Drawing.Color.Red, 2), -5, -5, 10, 10);
+            base.Draw(drawer);
+            if (isGlow)
+            {
+                drawer.FillEllipse(new System.Drawing.SolidBrush(System.Drawing.Color.White), -2.5f, -2.5f, 5, 5);
+                drawer.DrawEllipse(new System.Drawing.Pen(System.Drawing.Color.White, 2), -5, -5, 10, 10);
+            }
+            else
+            {
+                drawer.FillEllipse(new System.Drawing.SolidBrush(System.Drawing.Color.Red), -2.5f, -2.5f, 5, 5);
+                drawer.DrawEllipse(new System.Drawing.Pen(System.Drawing.Color.Red, 2), -5, -5, 10, 10);
+            }
         }
 
         public override System.Drawing.Drawing2D.GraphicsPath GetRegion()

@@ -36,8 +36,17 @@ namespace SimpleGame
 
         public override void Draw(System.Drawing.Graphics drawer)
         {
-            drawer.FillEllipse(new System.Drawing.SolidBrush(System.Drawing.Color.LimeGreen), -15, -15, 30, 30);
-            drawer.DrawEllipse(new System.Drawing.Pen(System.Drawing.Color.LimeGreen, 2), -20, -20, 40, 40);
+            base.Draw(drawer);
+            if (isGlow)
+            {
+                drawer.FillEllipse(new System.Drawing.SolidBrush(System.Drawing.Color.White), -15, -15, 30, 30);
+                drawer.DrawEllipse(new System.Drawing.Pen(System.Drawing.Color.White, 2), -20, -20, 40, 40);
+            }
+            else
+            {
+                drawer.FillEllipse(new System.Drawing.SolidBrush(System.Drawing.Color.LimeGreen), -15, -15, 30, 30);
+                drawer.DrawEllipse(new System.Drawing.Pen(System.Drawing.Color.LimeGreen, 2), -20, -20, 40, 40);
+            }          
         }
 
 

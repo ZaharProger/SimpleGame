@@ -8,20 +8,26 @@ namespace SimpleGame
     abstract class GameObject
     {
         protected Position position;
+        protected bool isGlow;
+
+        public Action<GameObject> overlapAction;      
 
         protected GameObject()
         {
             position = new Position();
+            isGlow = false;
         }
 
         protected GameObject(float x, float y, float angle)
         {
             position = new Position(x, y, angle);
+            isGlow = false;
         }
 
         protected GameObject(Position position)
         {
             this.position = new Position(position);
+            isGlow = false;
         }
 
         public void SetPosition(Position position)
@@ -29,6 +35,16 @@ namespace SimpleGame
             this.position.SetX(position.GetX());
             this.position.SetY(position.GetY());
             this.position.SetAngle(position.GetAngle());
+        }
+
+        public void SetGlow(bool status)
+        {
+            isGlow = status;
+        }
+
+        public bool IsGlow()
+        {
+            return isGlow;
         }
 
         public Position GetPosition()
@@ -45,7 +61,10 @@ namespace SimpleGame
             return matrix;
         }
 
-        public abstract void Draw(System.Drawing.Graphics drawer);
+        public virtual void Draw(System.Drawing.Graphics drawer)
+        {
+            drawer.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+        }
 
         public virtual System.Drawing.Drawing2D.GraphicsPath GetRegion()
         {
@@ -64,6 +83,12 @@ namespace SimpleGame
             region.Intersect(objectRegion);
 
             return !region.IsEmpty(graphicsArgs);
+        }
+
+        public virtual void Overlap(GameObject gameObject)
+        {
+            if (gameObject != null)
+                overlapAction(gameObject);
         }
     }
 }

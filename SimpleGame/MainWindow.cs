@@ -16,23 +16,20 @@ namespace SimpleGame
         private DarkArea darkArea;
         private List<GameObject> objects;
         private bool isStarted;
+        private System.Diagnostics.Stopwatch clock;
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();           
             isStarted = false;
             lifeLine.Maximum = 100;
             timeLine.Maximum = 60;
         }
 
+        //Закрытие формы
         private void MainWindow_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
                 Close();
-            else if (e.KeyCode == Keys.S)
-            {
-                player.SwitchHiddenStatus();
-                logField.Text += player.IsHidden()? $"{DateTime.Now:HH:mm:ss} - Игрок надел маскировку!\n" : $"{DateTime.Now:HH:mm:ss} - Игрок снял маскировку!\n";
-            }
         }
 
         //Открытие окна Правила
@@ -54,6 +51,9 @@ namespace SimpleGame
         //Запуск игры
         private void startButton_Click(object sender, EventArgs e)
         {
+            MovementLogic.IncalculateStaticValues();
+            clock = new System.Diagnostics.Stopwatch();
+            clock.Start();
             random = new Random();
             isStarted = true;
             scoreValue.Text = "0";          
@@ -64,11 +64,11 @@ namespace SimpleGame
             player = new Player(viewPort.Width / 2, viewPort.Height / 2, 0);
             destinationPoint = new DestinationPoint(viewPort.Width / 2 + 10, viewPort.Height / 2 + 10, 0);
             checkPoint = new CheckPoint(new Position(random.Next(0, viewPort.Width + 1), random.Next(0, viewPort.Height + 1), 0));
-            darkArea = new DarkArea(new Position(-100, random.Next(0, viewPort.Height + 1), 0), 1);
+            darkArea = new DarkArea(new Position(-100, random.Next(0, viewPort.Height + 1), 0));
 
             player.overlapAction += (gameObject) =>
             {
-                logField.Text += ((gameObject is DarkArea && !player.IsHidden()) || !(gameObject is DarkArea)) ? $"{DateTime.Now:HH:mm:ss} - Игрок пересекся с объектом {gameObject}!\n" : "";
+                logField.Text += ((gameObject is DarkArea && !player.IsHidden()) || !(gameObject is DarkArea)) ? $"{DateTime.Now:HH:mm:ss} - Игрок пересек объект {gameObject}!\n" : "";
             };
             player.destinationPointOverlapAction += (gameObject) =>
             {
@@ -77,6 +77,8 @@ namespace SimpleGame
             };
             player.checkPointOverlapAction += () =>
             {
+                player.SetHiddenStatus(true);
+                logField.Text += $"{DateTime.Now:HH:mm:ss} - Игрок восстановил маскировку!\n";
                 checkPoint.SetPosition(new Position(random.Next(0, viewPort.Width + 1), random.Next(0, viewPort.Height + 1), 0));
                 checkPoint.SetScale(1);
                 timeLine.Value = timeLine.Maximum;
@@ -92,25 +94,35 @@ namespace SimpleGame
                     lifeLine.Value = remainedHealth;
                 }
             };
+            darkArea.overlapAction += (gameObject) =>
+            {
+                gameObject.SetGlow(true);
+            };
+            darkArea.playerOverlapAction += (gameObject) =>
+            {
+                if (!player.IsHidden())
+                    player.SetGlow(false);
+            };
 
             objects = new List<GameObject>
             {
-                player,
-                destinationPoint,
+                darkArea,                
                 checkPoint,
-                darkArea
+                player,
+                destinationPoint
             };
         }
 
         //Обновление игровой механики
         private void time_Tick(object sender, EventArgs e)
-        {           
+        {
             if (isStarted)
             {
                 --timeLine.Value;               
                 if (timeLine.Value == 0)
                 {
                     player.SetHiddenStatus(false);
+                    logField.Text += $"{DateTime.Now:HH:mm:ss} - Игрок потерял маскировку!\n";
                     int remainedHealth = lifeLine.Value - 10;
                     if (remainedHealth < 0)
                         remainedHealth = 0;
@@ -121,15 +133,26 @@ namespace SimpleGame
                 if (lifeLine.Value <= 0)
                 {
                     isStarted = false;
+                    clock.Stop();
+                    string hours = clock.Elapsed.Hours.ToString();
+                    if (clock.Elapsed.Hours >= 0 && clock.Elapsed.Hours <= 9)
+                        hours = "0" + hours;
+                    string minutes = clock.Elapsed.Minutes.ToString();
+                    if (clock.Elapsed.Minutes >= 0 && clock.Elapsed.Minutes <= 9)
+                        minutes = "0" + minutes;
+                    string seconds = clock.Elapsed.Seconds.ToString();
+                    if (clock.Elapsed.Seconds >= 0 && clock.Elapsed.Seconds <= 9)
+                        seconds = "0" + seconds;
+                    string lifeTime = $"{hours}:{minutes}:{seconds}";
                     logField.Text += $"{DateTime.Now:HH:mm:ss} - Игра окончена, игрок потерял все очки здоровья!\n";
 
-                    Properties.Settings.Default.recordString += $"{DateTime.Now:dd:MM:yyyy}    {DateTime.Now:HH:mm:ss}    Игрок набрал {scoreValue.Text} очков\n";
+                    Properties.Settings.Default.recordString += $"{DateTime.Now:dd:MM:yyyy}    {DateTime.Now:HH:mm:ss}    Игрок набрал {scoreValue.Text} очков и прожил {lifeTime}\n";
                     Properties.Settings.Default.Save();
                 }
 
                 MovementLogic.UpdatePlayersPosition(player, destinationPoint);
                 MovementLogic.UpdateCheckPointScale(checkPoint, random.Next(0, viewPort.Width + 1), random.Next(0, viewPort.Height + 1));
-                MovementLogic.UpdateDarkAreaPosition(darkArea);
+                MovementLogic.UpdateDarkAreaPosition(darkArea, random.Next(0, viewPort.Height + 1));
                 viewPort.Invalidate();
             }
             else
@@ -146,9 +169,17 @@ namespace SimpleGame
             {
                 e.Graphics.Clear(Color.White);
 
-                foreach (GameObject gameObject in objects.ToArray())                 
+                foreach (GameObject gameObject in objects.ToArray())
+                {                    
                     if (gameObject != player && player.CheckOverlap(gameObject, e.Graphics))
-                        player.Overlap(gameObject);                 
+                        player.Overlap(gameObject);
+
+                    if (darkArea.CheckOverlap(gameObject, e.Graphics))
+                        darkArea.Overlap(gameObject);
+                    else
+                        gameObject.SetGlow(false);
+                }
+                    
 
                 foreach (GameObject gameObject in objects)
                 {

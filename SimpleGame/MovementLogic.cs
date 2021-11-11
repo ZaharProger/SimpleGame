@@ -7,7 +7,7 @@ namespace SimpleGame
     //Класс для работы с логикой передвижения и динамикой объектов
     class MovementLogic
     {
-        private static float newX = -100;
+        private static float limX = -100;
         //Обновление позиции игрока
         public static void UpdatePlayersPosition(Player player, DestinationPoint destinationPoint)
         {
@@ -40,7 +40,7 @@ namespace SimpleGame
         //Масштабирование контрольной точки
         public static void UpdateCheckPointScale(CheckPoint checkPoint, float newX, float newY)
         {
-            checkPoint.SetScale(checkPoint.GetScale() - 0.01f);
+            checkPoint.SetScale(checkPoint.GetScale() - 0.015f);
             if (checkPoint.GetScale() <= 0)
             {
                 checkPoint.SetPosition(new Position(newX, newY, 0));
@@ -49,18 +49,24 @@ namespace SimpleGame
         }
 
         //Движение черной области
-        public static void UpdateDarkAreaPosition(DarkArea darkArea)
+        public static void UpdateDarkAreaPosition(DarkArea darkArea, float newY)
         {
-            if (newX == -100)
+            if (limX == -100)
                 darkArea.SetPosition(new Position(darkArea.GetPosition().GetX() + 10, darkArea.GetPosition().GetY(), 0));
-            else if (newX == 700)
+            else if (limX == 660)
                 darkArea.SetPosition(new Position(darkArea.GetPosition().GetX() - 10, darkArea.GetPosition().GetY(), 0));
 
-            if (darkArea.GetPosition().GetX() == 700 || darkArea.GetPosition().GetX() == -100)
+            if (darkArea.GetPosition().GetX() == 660 || darkArea.GetPosition().GetX() == -100)
             {
-                newX = darkArea.GetPosition().GetX();
-                darkArea.SetPosition(new Position(newX, darkArea.GetPosition().GetY(), 0));
+                limX = darkArea.GetPosition().GetX();
+                darkArea.SetPosition(new Position(limX, newY, 0));
             }                
+        }
+
+        //Восстановление значения предела
+        public static void IncalculateStaticValues()
+        {
+            limX = -100;
         }
     }
 }
