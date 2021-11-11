@@ -30,9 +30,9 @@ namespace SimpleGame
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.recordField = new System.Windows.Forms.RichTextBox();
             this.headLabel = new System.Windows.Forms.Label();
             this.resetButton = new System.Windows.Forms.Button();
-            this.recordField = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,6 +54,18 @@ namespace SimpleGame
             this.tableLayoutPanel1.Size = new System.Drawing.Size(784, 761);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
+            // recordField
+            // 
+            this.recordField.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.recordField.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.recordField.Location = new System.Drawing.Point(53, 54);
+            this.recordField.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.recordField.Name = "recordField";
+            this.recordField.ReadOnly = true;
+            this.recordField.Size = new System.Drawing.Size(678, 611);
+            this.recordField.TabIndex = 3;
+            this.recordField.Text = "";
+            // 
             // headLabel
             // 
             this.headLabel.AutoSize = true;
@@ -63,7 +75,7 @@ namespace SimpleGame
             this.headLabel.Name = "headLabel";
             this.headLabel.Size = new System.Drawing.Size(678, 47);
             this.headLabel.TabIndex = 1;
-            this.headLabel.Text = "Таблица Рекордов";
+            this.headLabel.Text = "Статистика";
             this.headLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // resetButton
@@ -82,18 +94,6 @@ namespace SimpleGame
             this.resetButton.Text = "Очистить";
             this.resetButton.UseVisualStyleBackColor = false;
             this.resetButton.Click += new System.EventHandler(this.resetButton_Click);
-            // 
-            // recordField
-            // 
-            this.recordField.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.recordField.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.recordField.Location = new System.Drawing.Point(53, 54);
-            this.recordField.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.recordField.Name = "recordField";
-            this.recordField.ReadOnly = true;
-            this.recordField.Size = new System.Drawing.Size(678, 611);
-            this.recordField.TabIndex = 3;
-            this.recordField.Text = "";
             // 
             // RecordWindow
             // 
