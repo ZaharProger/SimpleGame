@@ -81,6 +81,7 @@ namespace SimpleGame
             // resetButton
             // 
             this.resetButton.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.resetButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.resetButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.resetButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.resetButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
