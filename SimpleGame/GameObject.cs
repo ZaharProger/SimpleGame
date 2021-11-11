@@ -9,7 +9,6 @@ namespace SimpleGame
     {
         protected Position position;
         protected bool isOverlapped;
-
         protected GameObject()
         {
             position = new Position();
@@ -40,7 +39,7 @@ namespace SimpleGame
             return position;
         }
 
-        public void SetOverlap(bool status)
+        public void SetOverlapping(bool status)
         {
             isOverlapped = status;
         }
@@ -50,7 +49,7 @@ namespace SimpleGame
             return isOverlapped;
         }
 
-        public System.Drawing.Drawing2D.Matrix GetTransformData()
+        public virtual System.Drawing.Drawing2D.Matrix GetTransformData()
         {
             System.Drawing.Drawing2D.Matrix matrix = new System.Drawing.Drawing2D.Matrix();
             matrix.Translate(position.GetX(), position.GetY());
@@ -75,9 +74,10 @@ namespace SimpleGame
             objectRegion.Transform(gameObject.GetTransformData());
 
             System.Drawing.Region region = new System.Drawing.Region(actualRegion);
-            region.Intersect(objectRegion);           
+            region.Intersect(objectRegion);
 
             isOverlapped = !region.IsEmpty(graphicsArgs);
+            gameObject.SetOverlapping(isOverlapped);
         }
 
     }

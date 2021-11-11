@@ -9,8 +9,10 @@ namespace SimpleGame
 {
     public partial class MainWindow : Form
     {
+        private Random random;
         private Player player;
         private DestinationPoint destinationPoint;
+        private CheckPoint checkPoint;
         private List<GameObject> objects;
         private bool isStarted;
         public MainWindow()
@@ -18,7 +20,7 @@ namespace SimpleGame
             InitializeComponent();
             isStarted = false;
             lifeLine.Maximum = 100;
-            timeLine.Maximum = 60;
+            timeLine.Maximum = 60;            
         }
 
         //Закрытие формы
@@ -39,6 +41,7 @@ namespace SimpleGame
         //Запуск игры
         private void startButton_Click(object sender, EventArgs e)
         {
+            random = new Random();
             isStarted = true;
             scoreValue.Text = "0";          
             lifeLine.Value = lifeLine.Maximum;
@@ -46,49 +49,26 @@ namespace SimpleGame
             logField.Text = $"{DateTime.Now:HH:mm:ss} - Новая игра началась!\n";
             player = new Player(viewPort.Width / 2, viewPort.Height / 2, 0);
             destinationPoint = new DestinationPoint(viewPort.Width / 2 + 10, viewPort.Height / 2 + 10, 0);
-            objects = new List<GameObject>();
-            objects.Add(player);
-            objects.Add(destinationPoint);
-        }
-
-        //Обновление позиции игрока
-        private void UpdatePlayersPosition()
-        {
-            Position updatedPlayersPosition = new Position();
-
-            if (destinationPoint != null)
+            checkPoint = new CheckPoint(new Position(random.Next(0, viewPort.Width + 1), random.Next(0, viewPort.Height + 1), 0));
+            objects = new List<GameObject>
             {
-                updatedPlayersPosition.SetX(destinationPoint.GetPosition().GetX() - player.GetPosition().GetX());
-                updatedPlayersPosition.SetY(destinationPoint.GetPosition().GetY() - player.GetPosition().GetY());
-
-                float length = MathF.Sqrt(MathF.Pow(updatedPlayersPosition.GetX(), 2) + MathF.Pow(updatedPlayersPosition.GetY(), 2));
-                updatedPlayersPosition.SetX(updatedPlayersPosition.GetX() / length);
-                updatedPlayersPosition.SetY(updatedPlayersPosition.GetY() / length);
-
-                player.SetSpeedX(player.GetSpeedX() + updatedPlayersPosition.GetX());
-                player.SetSpeedY(player.GetSpeedY() + updatedPlayersPosition.GetY());
-
-                updatedPlayersPosition.SetAngle(90 - MathF.Atan2(player.GetSpeedX(), player.GetSpeedY()) * 180 / MathF.PI);
-            }
-
-            player.SetSpeedX(player.GetSpeedX() + (-player.GetSpeedX() * 0.1f));
-            player.SetSpeedY(player.GetSpeedY() + (-player.GetSpeedY() * 0.1f));
-       
-            updatedPlayersPosition.SetX(player.GetPosition().GetX() + player.GetSpeedX());           
-            updatedPlayersPosition.SetY(player.GetPosition().GetY() + player.GetSpeedY());
-
-            player.SetPosition(updatedPlayersPosition);
+                player,
+                destinationPoint,
+                checkPoint
+            };
         }
 
         //Обновление игровой механики
         private void time_Tick(object sender, EventArgs e)
-        {
-            
+        {           
             if (isStarted)
             {
                 --timeLine.Value;
-                if (player.IsOverlapped())
+                if (checkPoint.IsOverlapped())
+                {
                     timeLine.Value = timeLine.Maximum;
+                    scoreValue.Text = (Convert.ToInt32(scoreValue.Text) + 1).ToString();
+                }                  
                 if (timeLine.Value == 0)
                 {
                     timeLine.Value = timeLine.Maximum;
@@ -101,7 +81,9 @@ namespace SimpleGame
                     logField.Text += $"{DateTime.Now:HH:mm:ss} - Игра окончена, игрок потерял все очки здоровья!\n";
                 }
 
-                UpdatePlayersPosition();
+                MovementLogic.UpdatePlayersPosition(player, destinationPoint);
+                MovementLogic.UpdateCheckPointScale(checkPoint);
+
                 viewPort.Invalidate();
             }
             else
@@ -116,19 +98,30 @@ namespace SimpleGame
         {
             if (isStarted)
             {
-                e.Graphics.Clear(Color.White);              
+                e.Graphics.Clear(Color.White);
+                if (checkPoint.GetScale() <= 0)
+                {
+                    checkPoint.SetPosition(new Position(random.Next(0, viewPort.Width + 1), random.Next(0, viewPort.Height + 1), 0));
+                    checkPoint.SetScale(1);
+                }
                 foreach (GameObject gameObject in objects.ToArray())
                 {
                     player.CheckOverlap(gameObject, e.Graphics);
                     if (gameObject != player && player.IsOverlapped())
                     {
-                        logField.Text += $"{DateTime.Now:HH:mm:ss} - Игрок пересекся с объектом '{gameObject}'!\n";
+                        logField.Text += $"{DateTime.Now:HH:mm:ss} - Игрок пересекся с объектом {gameObject}!\n";
                         if (gameObject == destinationPoint)
                         {
                             objects.Remove(gameObject);
                             destinationPoint = null;
                         }
+                        else if (gameObject == checkPoint)
+                        {
+                            checkPoint.SetPosition(new Position(random.Next(0, viewPort.Width + 1), random.Next(0, viewPort.Height + 1), 0));
+                            checkPoint.SetScale(1);
+                        }
                     }
+
                     e.Graphics.Transform = gameObject.GetTransformData();
                     gameObject.Draw(e.Graphics);
                 }
